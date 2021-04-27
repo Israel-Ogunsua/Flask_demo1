@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>
+    {% block title%}
+     
+    {% endblock%}
+  </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="pos">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{{ url_for('home') }}" >FoodProf</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="{{ url_for('home') }}">Home</a></li>
+                        <li class="active"><a href="#">Menu</a></li>
+                        <li class="active"><a href="#">About</a></li>
+                        <li class="active"><a href="#">Add to menu</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if current_user.is_authenticated %}
+                            <li><a href="{{ url_for('account') }}"><span class="glyphicon glyphicon-user"></span> account</a></li>
+                            <li><a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                        {% else%}
+                            <li><a href="{{ url_for('register') }}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                            <li><a href="{{ url_for('login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        {%endif%}
+                       
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories= true) %}
+        {% if messages %}
+            {% for categoty, message in messages %}
+                <p style="justify-content: center;
+                align-content: center; display: flex; color:red; ">{{ message }}</p>
+            {%endfor%}
+        {% endif%}
+    {%endwith%}
+
+
+    {%block content%}
+
+    {%endblock%}
+
+    <style>
+        .navbar navbar-inverse, .container-fluid,.collapse navbar-collapse {
+            background-color: rgba(241, 233, 193, 0.877);
+        
+        }
+        .navbar-brand{
+            background-color:black ;
+        }
+        #myNavbar{
+            background-color:rgb(129, 102, 52);
+        }
+        a{
+            background-color: rgb(129, 102, 52);
+        }
+        .glyphicon glyphicon-user{
+            color:white;
+        }
+        
+        .container-fluid{
+            height: 90px;
+            
+        }
+    
+        #myNavbar, .navbar-header {
+            margin-top: 20px;
+        }
+    </style>
+</body>
+</html>
